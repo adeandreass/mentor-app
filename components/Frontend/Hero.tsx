@@ -1,30 +1,30 @@
 import React, { useState } from "react";
 import SearchBar from "./SearchBar";
+import TransitionalText from "./TransitionalText";
 
 const Hero = () => {
+  const TEXTS = ['Guru', 'Mentor', 'Tutor', 'Pengajar'];
   return (
-    <div className="bg-sky-400">
+    <div className="bg-emerald-400">
         <div className="relative pb-[110px] pt-[50px] dark:bg-dark lg:pt-[50px] max-w-6xl mx-auto ">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
-            <div className="w-full px-4 lg:w-5/12">
+            <div className="w-full px-4 lg:w-6/12">
               <div className="hero-content">
-                <h1 className="mb-5 text-4xl font-bold !leading-[1.208] text-gray-50 dark:text-white sm:text-[42px] lg:text-[40px] xl:text-5xl">
-                  Kickstart Startup Website with TailGrids
+                <h1 className="mb-5 text-4xl font-bold !leading-[1.208] text-gray-50 dark:text-white sm:text-[42px] lg:text-[40px] xl:text-5xl flex flex-wrap items-center gap-3">
+                  <span>Temukan</span> <TransitionalText className="text-gray-500" TEXTS={TEXTS}/> <span>Private Terbaik</span> <span>Sekarang!</span>
                 </h1>
                 <p className="mb-8 max-w-[480px] text-base text-gray-100 dark:text-gray-50-6">
-                  With TailGrids, business and students thrive together.
-                  Business can perfectly match their staffing to changing demand
-                  throughout the dayed.
+                Mulailah perjalanan belajar Anda dengan guru privat terbaik,  Daftar sekarang dan temukan guru yang tepat untuk Anda!
                 </p>
                 <SearchBar/>
                 <ul className="flex flex-wrap items-center mt-6">
                   <li>
                     <a
                       href="/#"
-                      className="inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-center text-base font-medium text-white hover:bg-blue-700 lg:px-7"
+                      className="inline-flex items-center justify-center rounded-md bg-emerald-600 px-6 py-3 text-center text-base font-medium text-white hover:bg-blue-700 lg:px-7"
                     >
-                      Get Started
+                      Butuh Guru Segara
                     </a>
                   </li>
                   <li>
@@ -40,7 +40,7 @@ const Hero = () => {
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
                         >
-                          <circle cx="12" cy="12.6152" r="12" fill="#3758F9" />
+                          <circle cx="12" cy="12.6152" r="12" fill="#10b981" />
                           <rect
                             x="7.99893"
                             y="14.979"
@@ -65,11 +65,21 @@ const Hero = () => {
                     </a>
                   </li>
                 </ul>
-                
+                <div className="py-4 pt-8 flex gap-4">
+                  <div className="flex flex-col items-center justify-center">
+                    <span className="font-bold text-gray-50">238</span>
+                    <span className="text-sm text-gray-600">Active Specialist</span>
+                  </div>
+                  <div className="flex flex-col items-center justify-center">
+                    <span className="font-bold text-blue-50">238</span>
+                    <span className="text-sm text-gray-600">Active Specialist</span>
+                  </div>
+                </div>
+
               </div>
             </div>
             <div className="hidden px-4 lg:block lg:w-1/12"></div>
-            <div className="w-full px-4 lg:w-6/12">
+            <div className="w-full px-4 lg:w-5/12">
               <div className="lg:ml-auto lg:text-right">
                 <div className="relative z-10 inline-block pt-11 lg:pt-0">
                   <img
