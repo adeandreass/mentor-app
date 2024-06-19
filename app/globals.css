@@ -75,3 +75,10 @@
       min-height: 100vh;
     }
   }
+
+.linear-bg {
+  background: url("/bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
