@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
-
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
