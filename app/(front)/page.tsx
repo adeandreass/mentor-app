@@ -10,7 +10,7 @@ export default function Home() {
     <Hero/>
     <TabbedSection/>
     <TeachersList/>
-    <TeachersList className="bg-white py-8 lg:py-24" title="In-person doctor visit" isInPerson={true} />
+    <TeachersList className="bg-white py-8 lg:py-24" title="In-person teacher visit" isInPerson={true} />
    </section>
   );
 }

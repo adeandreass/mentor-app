@@ -87,7 +87,7 @@ export default function page() {
             <div className="py-6">
               {features.map((feature, i) => {
                 return (
-                  <p className="flex items-center">
+                  <p key={i} className="flex items-center">
                     <Check className="w-4 h-4 mr-2 flex-shrink-0 text-blue-500" />
                     {feature}
                   </p>
@@ -121,16 +121,7 @@ export default function page() {
               </span>{" "}
               today.
             </h2>
-            {/* <div className="py-6">
-              {steps.map((feature, i) => {
-                return (
-                  <p className="flex items-center">
-                    <Check className="w-4 h-4 mr-2 flex-shrink-0 text-blue-500" />
-                    {feature}
-                  </p>
-                );
-              })}
-            </div> */}
+            
             <div className="grid grid-cols-2 gap-4 py-6">
               {cards.map((card, i) => {
                 return (
