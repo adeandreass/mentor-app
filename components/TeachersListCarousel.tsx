@@ -6,7 +6,13 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import TeacherCard from "./TeacherCard";
-export default function TeachersListCarousel({ teachers, isInPerson }: {teachers:any; isInPerson?:boolean}) {
+export default function TeachersListCarousel({
+  teachers,
+  isInPerson,
+}: {
+  teachers: any;
+  isInPerson?: boolean;
+}) {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -43,9 +49,9 @@ export default function TeachersListCarousel({ teachers, isInPerson }: {teachers
       dotListClass="custom-dot-list-style"
       itemClass="px-4"
     >
-      {teachers.map((teacher:any, i:number) => {
-              return <TeacherCard key={i} isInPerson={isInPerson} />;
-            })}    
+      {teachers.map((teacher: any, i: number) => {
+        return <TeacherCard key={i} isInPerson={isInPerson} />;
+      })}
     </Carousel>
   );
 }

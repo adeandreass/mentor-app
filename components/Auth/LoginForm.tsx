@@ -13,7 +13,7 @@ import { HiInformationCircle } from "react-icons/hi";
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -62,18 +62,19 @@ export default function LoginForm() {
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-        {showNotification && (
+          {showNotification && (
             <Alert color="failure" icon={HiInformationCircle}>
               <span className="font-medium">Sign-in error!</span> Please Check
               your credentials
             </Alert>
-             )}
+          )}
           <TextInput
             label="Email Address"
             register={register}
             name="email"
             type="email"
             errors={errors}
+            placeholder=""
           />
 
           <div>
@@ -99,6 +100,7 @@ export default function LoginForm() {
                 id="password"
                 name="password"
                 type="password"
+                
                 autoComplete="current-password"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />

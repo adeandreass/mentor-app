@@ -1,23 +1,30 @@
 import React, { useState } from "react";
 import SearchBar from "./SearchBar";
 import TransitionalText from "./TransitionalText";
+import { CommandMenu } from "../command-menu";
 
 const Hero = () => {
-  const TEXTS = ['Guru', 'Mentor', 'Tutor', 'Pengajar'];
+  const TEXTS = ["Guru", "Mentor", "Tutor", "Pengajar"];
   return (
-    <div className="bg-emerald-400 mt-[160px]">
-        <div className="relative pb-[110px] pt-[50px] dark:bg-dark lg:pt-[50px] max-w-6xl mx-auto ">
+    <div className="bg-emerald-400 dark:bg-slate-950">
+      <div className="relative pb-[110px] pt-[50px] dark:bg-dark lg:pt-[50px] max-w-6xl mx-auto ">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4 lg:w-6/12">
               <div className="hero-content">
                 <h1 className="mb-5 text-4xl font-bold !leading-[1.208] text-gray-50 dark:text-white sm:text-[42px] lg:text-[40px] xl:text-5xl flex flex-wrap items-center gap-3">
-                  <span>Temukan</span> <TransitionalText className="text-gray-500" TEXTS={TEXTS}/> <span>Private Terbaik</span> <span>Sekarang!</span>
+                  <span>Temukan</span>{" "}
+                  <TransitionalText className="text-gray-500" TEXTS={TEXTS} />{" "}
+                  <span>Private Terbaik</span> <span>Sekarang!</span>
                 </h1>
                 <p className="mb-8 max-w-[480px] text-base text-gray-100 dark:text-gray-50-6">
-                Mulailah perjalanan belajar Anda dengan guru privat terbaik,  Daftar sekarang dan temukan guru yang tepat untuk Anda!
+                  Mulailah perjalanan belajar Anda dengan guru privat terbaik,
+                  Daftar sekarang dan temukan guru yang tepat untuk Anda!
                 </p>
-                <SearchBar/>
+                {/* <SearchBar/> */}
+                <div className="w-full flex-1 md:flex-none">
+                  <CommandMenu />
+                </div>
                 <ul className="flex flex-wrap items-center mt-6">
                   <li>
                     <a
@@ -68,14 +75,17 @@ const Hero = () => {
                 <div className="py-4 pt-8 flex gap-4">
                   <div className="flex flex-col items-center justify-center">
                     <span className="font-bold text-gray-50">238</span>
-                    <span className="text-sm text-gray-600">Active Specialist</span>
+                    <span className="text-sm text-gray-600">
+                      Active Specialist
+                    </span>
                   </div>
                   <div className="flex flex-col items-center justify-center">
                     <span className="font-bold text-blue-50">238</span>
-                    <span className="text-sm text-gray-600">Active Specialist</span>
+                    <span className="text-sm text-gray-600">
+                      Active Specialist
+                    </span>
                   </div>
                 </div>
-
               </div>
             </div>
             <div className="hidden px-4 lg:block lg:w-1/12"></div>
@@ -134,7 +144,7 @@ const Hero = () => {
 
 export default Hero;
 
-const SingleImage = ({ href, imgSrc }:{href:string,imgSrc:string}) => {
+const SingleImage = ({ href, imgSrc }: { href: string; imgSrc: string }) => {
   return (
     <>
       <a href={href} className="flex w-full items-center justify-center">
@@ -143,4 +153,3 @@ const SingleImage = ({ href, imgSrc }:{href:string,imgSrc:string}) => {
     </>
   );
 };
-

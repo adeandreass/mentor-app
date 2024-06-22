@@ -1,5 +1,5 @@
 "use client";
- 
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { HiInformationCircle } from "react-icons/hi";
@@ -27,13 +27,14 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { updateUserById } from "@/actions/users";
- 
+import SubmitButton from "../FormInputs/SubmitButton";
+
 const FormSchema = z.object({
   token: z.string().min(6, {
     message: "Your Token must be 6 characters.",
   }),
 });
- 
+
 export default function VerifyTokenForm({
   userToken,
   id,
@@ -50,7 +51,7 @@ export default function VerifyTokenForm({
       token: "",
     },
   });
- 
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
     const userInputToken = parseInt(data.token);
@@ -73,7 +74,7 @@ export default function VerifyTokenForm({
     }
     console.log(userInputToken);
   }
- 
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
@@ -104,15 +105,19 @@ export default function VerifyTokenForm({
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
-              <FormDescription>
+              {/* <FormDescription>
                 Please enter the 6-figure pass code sent to your email.
-              </FormDescription>
+              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
         />
- 
-        <Button type="submit">Submit</Button>
+
+        <SubmitButton
+          title="Submit to Verify"
+          isLoading={loading}
+          loadingTitle="Verifying please wait..."
+        />
       </form>
     </Form>
   );

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Linkedin } from "lucide-react";
 import { title } from "process";
 import React from "react";
@@ -75,30 +75,30 @@ export default function Footer() {
       title: "Linkedin",
       href: "https://www.linkedin.com/",
       icon: Linkedin,
-      color:"text-blue-600"
+      color: "text-blue-600",
     },
     {
       title: "Linkedin",
       href: "https://www.linkedin.com/",
       icon: Linkedin,
-      color:"text-blue-600"
+      color: "text-blue-600",
     },
     {
       title: "Linkedin",
       href: "https://www.linkedin.com/",
       icon: Linkedin,
-      color:"text-blue-600"
+      color: "text-blue-600",
     },
     {
       title: "Linkedin",
       href: "https://www.linkedin.com/",
       icon: Linkedin,
-      color:"text-blue-600"
+      color: "text-blue-600",
     },
   ];
 
   return (
-    <footer className="text-gray-500 bg-white px-4 py-5 max-w-screen-xl mx-auto md:px-8">
+    <footer className="text-gray-500 bg-white dark:bg-slate-950 px-4 py-5 max-w-screen-xl mx-auto md:px-8">
       <div className="gap-6 justify-between md:flex">
         <div className="flex-1">
           <div className="max-w-xs">
@@ -108,24 +108,13 @@ export default function Footer() {
               the 1500s.
             </p>
           </div>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <label className="block pt-4 pb-2">Stay up to date</label>
-            <div className="max-w-sm flex items-center border rounded-md p-1">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full p-2.5 outline-none"
-              />
-              <button className="p-2.5 rounded-md text-white bg-indigo-600 outline-none shadow-md focus:shadow-none sm:px-5">
-                Subscribe
-              </button>
-            </div>
-          </form>
         </div>
         <div className="flex-1 mt-10 space-y-6 items-center justify-between sm:flex md:space-y-0 md:mt-0">
           {footerNavs.map((item, idx) => (
             <ul className="space-y-4" key={idx}>
-              <h4 className="text-gray-800 font-medium">{item.label}</h4>
+              <h4 className="text-gray-800 dark:text-gray-300 font-medium">
+                {item.label}
+              </h4>
               {item.items.map((el, idx) => (
                 <li key={idx}>
                   <a
@@ -162,7 +151,6 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      
     </footer>
   );
 }
