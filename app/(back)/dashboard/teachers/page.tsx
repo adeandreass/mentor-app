@@ -1,10 +1,9 @@
-import Dashboard from '@/components/Dashboard/Dashboard'
 import React from 'react'
 
 export default function page() {
   return (
     <div>
-        <Dashboard />
+        <h2>Teachers</h2>
     </div>
   )
 }
