@@ -9,7 +9,7 @@ export default function Home() {
    <section className="">
     <Hero/>
     <TabbedSection/>
-    <TeachersList/>
+    {/* <TeachersList/> */}
     <TeachersList className="bg-blue-50 dark:bg-slate-900 py-8 lg:py-24" title="In-person teacher visit" isInPerson={true} />
    </section>
   );

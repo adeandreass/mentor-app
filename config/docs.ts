@@ -8,19 +8,19 @@ interface DocsConfig {
 export const docsConfig: DocsConfig = {
   mainNav: [
     {
-      title: "Home",
+      title: "Beranda",
       href: "/",
     },
     {
-      title: "Find Teacher",
+      title: "Cari Pengajar",
       href: "/find-teacher",
     },
     {
-      title: "About",
+      title: "Tentang Kami",
       href: "/about",
     },
     {
-      title: "Services",
+      title: "Layanan",
       href: "/services",
     },
   ],

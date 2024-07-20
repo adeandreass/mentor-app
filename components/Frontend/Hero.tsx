@@ -14,7 +14,7 @@ const Hero = () => {
               <div className="hero-content">
                 <h1 className="mb-5 text-4xl font-bold !leading-[1.208] text-gray-50 dark:text-white sm:text-[42px] lg:text-[40px] xl:text-5xl flex flex-wrap items-center gap-3">
                   <span>Temukan</span>{" "}
-                  <TransitionalText className="text-gray-500" TEXTS={TEXTS} />{" "}
+                  <TransitionalText className="text-gray-500 dark:text-emerald-400" TEXTS={TEXTS} />{" "}
                   <span>Private Terbaik</span> <span>Sekarang!</span>
                 </h1>
                 <p className="mb-8 max-w-[480px] text-base text-gray-100 dark:text-gray-50-6">
@@ -34,7 +34,7 @@ const Hero = () => {
                       Butuh Guru Segara
                     </a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a
                       href="/#"
                       className="inline-flex items-center justify-center px-5 py-3 text-center text-base font-medium text-gray-50 hover:text-blue-500 dark:text-white"
@@ -70,19 +70,19 @@ const Hero = () => {
                       </span>
                       Download App
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
                 <div className="py-4 pt-8 flex gap-4">
                   <div className="flex flex-col items-center justify-center">
                     <span className="font-bold text-gray-50">238</span>
-                    <span className="text-sm text-gray-600">
-                      Active Specialist
+                    <span className="text-sm text-gray-50">
+                      Pengajar Aktif
                     </span>
                   </div>
                   <div className="flex flex-col items-center justify-center">
                     <span className="font-bold text-blue-50">238</span>
-                    <span className="text-sm text-gray-600">
-                      Active Specialist
+                    <span className="text-sm text-blue-50">
+                      Siswa Aktif
                     </span>
                   </div>
                 </div>

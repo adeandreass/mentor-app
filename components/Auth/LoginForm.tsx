@@ -56,7 +56,7 @@ export default function LoginForm() {
           alt="Your Company"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Sign in to your account
+          Masuk ke akun Kamu
         </h2>
       </div>
 
@@ -64,8 +64,7 @@ export default function LoginForm() {
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
           {showNotification && (
             <Alert color="failure" icon={HiInformationCircle}>
-              <span className="font-medium">Sign-in error!</span> Please Check
-              your credentials
+              <span className="font-medium">Masuk gagal!</span> Silakan periksa email dan password Anda
             </Alert>
           )}
           <TextInput
@@ -90,7 +89,7 @@ export default function LoginForm() {
                   href="#"
                   className="font-semibold text-indigo-600 hover:text-indigo-500"
                 >
-                  Forgot password?
+                  Lupa password?
                 </a>
               </div>
             </div>
@@ -114,20 +113,20 @@ export default function LoginForm() {
 
           <div>
             <SubmitButton
-              title="Login"
+              title="Masuk"
               isLoading={isLoading}
-              loadingTitle="Logging you in please wait..."
+              loadingTitle="Masuk ke akun anda silahkan tunggu..."
             />
           </div>
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          Don't have Account?{" "}
+          Belum punya akun?{" "}
           <Link
             href="/register"
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           >
-            Register
+            Daftar
           </Link>
         </p>
       </div>

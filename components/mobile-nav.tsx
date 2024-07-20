@@ -12,25 +12,25 @@ import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Microscope } from "lucide-react";
+import { Book, BookUser, Microscope } from "lucide-react";
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
   const mobileNavLinks = [
     {
-      name: "Home",
+      name: "Beranda",
       path: "/",
     },
     {
-      name: "Find Teacher",
+      name: "Cari Pengajar",
       path: "/find-teacher",
     },
     {
-      name: "About",
+      name: "Tentang Kami",
       path: "/about",
     },
     {
-      name: "Services",
+      name: "Layanan",
       path: "/services",
     },
   ];
@@ -79,7 +79,7 @@ export function MobileNav() {
           className="flex items-center"
           onOpenChange={setOpen}
         >
-          <Microscope className="mr-2 h-4 w-4" />
+          <BookUser className="mr-2 h-4 w-4" />
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">

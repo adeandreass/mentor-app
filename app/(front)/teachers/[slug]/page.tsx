@@ -14,13 +14,13 @@ export default function page() {
             <div className="">
               <div className="flex flex-col">
                 <h2 className="uppercase font-bold text-2xl tracking-widest">
-                  Ade Andreas
+                  Jane Doe
                 </h2>
-                <p className="text-gray-500 text-xs uppercase">Guru Kadita</p>
+                <p className="text-gray-500 text-xs uppercase">Matematika</p>
               </div>
               <div className="py-3">
                 <p>in person</p>
-                <p>pakam</p>
+                <p>Medan</p>
               </div>
             </div>
             <Image

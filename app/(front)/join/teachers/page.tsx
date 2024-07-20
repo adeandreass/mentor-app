@@ -1,5 +1,7 @@
 import CustomButton from "@/components/CustomButton";
-import CustomAccordion, { FAQItem } from "@/components/Frontend/CustomAccordion";
+import CustomAccordion, {
+  FAQItem,
+} from "@/components/Frontend/CustomAccordion";
 import Pricing from "@/components/Frontend/Pricing";
 import { Check } from "lucide-react";
 import Image from "next/image";
@@ -7,16 +9,8 @@ import Link from "next/link";
 import React from "react";
 
 export default function page() {
-  const features = [
-    "Sesame bring", 
-    "Sesame bring", 
-    "Sesame bring"
-  ];
-  const steps = [
-    "Sesame bring", 
-    "Sesame bring", 
-    "Sesame bring"
-  ];
+  const features = ["Sesame bring", "Sesame bring", "Sesame bring"];
+  const steps = ["Sesame bring", "Sesame bring", "Sesame bring"];
   const cards = [
     {
       title: "Begin your journey",
@@ -64,16 +58,16 @@ export default function page() {
       qn: "how can I reset my password",
       ans: "to reset you password, go to",
     },
-  ]
+  ];
   return (
     <div className="min-h-screen">
       <section className="py-12 px-4">
         <div className="max-w-6xl gap-4 mx-auto grid grid-cols-1 md:grid-cols-2">
           <div className="">
-            <h2 className="sm:text-[3rem] text-[1.5rem] leading-[3.5rem]">
+            <h2 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
               Build a thriving{" "}
               <span className="text-blue-600 font-semibold">direct-pay</span>{" "}
-              pratice with Mentor App
+              practice with LearnMate.
             </h2>
             <p className="py-4">
               Sesame is a full-service platform to help you build and run your
@@ -82,7 +76,7 @@ export default function page() {
             <CustomButton
               title="List your Service"
               href="#"
-              className="bg-blue-600 hover:bg-blue-800"
+              className="bg-blue-600 dark:bg-slate-200 hover:bg-blue-800"
             />
             <div className="py-6">
               {features.map((feature, i) => {
@@ -121,7 +115,7 @@ export default function page() {
               </span>{" "}
               today.
             </h2>
-            
+
             <div className="grid grid-cols-2 gap-4 py-6">
               {cards.map((card, i) => {
                 return (
@@ -147,7 +141,7 @@ export default function page() {
           </div>
         </div>
       </section>
-      
+
       <section className="py-12 px-4">
         <div className="max-w-6xl gap-4 mx-auto">
           <Pricing />
@@ -155,7 +149,7 @@ export default function page() {
       </section>
       <section className="py-12 px-4">
         <div className="max-w-2xl gap-4 mx-auto">
-          <CustomAccordion FAQS={faqs}/>
+          <CustomAccordion FAQS={faqs} />
         </div>
       </section>
     </div>

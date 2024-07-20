@@ -7,23 +7,23 @@ import bcrypt from "bcrypt";
 import { Resend } from "resend";
 import EmailTemplate from "@/components/Emails/email-template";
 
-export async function createUser(formData:RegisterInputProps) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-    const { fullName, email, role, phone, password } = formData;
-    try {
-        const existingUser = await prismaClient.user.findUnique({
-            where: {
-              email,
-            },
-          });
-          if (existingUser) {
-            return {
-                data: null,
-                error: `User with this email ( ${email})  already exists in the Database`,
-                status: 409,
-            };
-        }
-        // Encrypt the Password =>bcrypt
+export async function createUser(formData: RegisterInputProps) {
+  const resend = new Resend('re_hcdkSbs1_ZWo6AbWCSq9SyJs3ftw9hhTh');
+  const { fullName, email, role, phone, password, plan } = formData;
+  try {
+    const existingUser = await prismaClient.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (existingUser) {
+      return {
+        data: null,
+        error: `User with this email ( ${email})  already exists in the Database`,
+        status: 409,
+      };
+    }
+    // Encrypt the Password =>bcrypt
     const hashedPassword = await bcrypt.hash(password, 10);
     //Generate Token
     const generateToken = () => {
@@ -39,6 +39,7 @@ export async function createUser(formData:RegisterInputProps) {
         phone,
         password: hashedPassword,
         role,
+        plan,
         token: userToken,
       },
     });
@@ -47,34 +48,34 @@ export async function createUser(formData:RegisterInputProps) {
     const firstName = newUser.name.split(" ")[0];
     const linkText = "Verify your Account ";
     const message =
-      "Thank you for registering with Gecko. To complete your registration and verify your email address, please enter the following 6-digit verification code on our website :";
+      "Terima kasih telah mendaftar di LearnMate. Untuk menyelesaikan pendaftaran dan memverifikasi alamat email Anda, silakan masukkan kode verifikasi 6 digit berikut di situs web kami :";
     const sendMail = await resend.emails.send({
-      from: "Medical App <info@jazzafricaadventures.com>",
+      from: "LearnMate <onboarding@resend.dev>",
       to: email,
-      subject: "Verify Your Email Address",
+      subject: "Verifikasi alamat email Anda",
       react: EmailTemplate({ firstName, token, linkText, message }),
     });
     console.log(token);
     console.log(sendMail);
     console.log(newUser);
     return {
-        data: newUser,
-        error: null,
-        status: 200,
+      data: newUser,
+      error: null,
+      status: 200,
     };
-    } catch (error) {
-        console.log(error);
-        return {
-            error: "Something went wrong",
-        };
-    }    
+  } catch (error) {
+    console.log(error);
+    return {
+      error: "Something went wrong",
+    };
+  }
 }
 
-export async function getUserById(id:string){
-  if(id){
+export async function getUserById(id: string) {
+  if (id) {
     try {
       const user = await prismaClient.user.findUnique({
-        where:{
+        where: {
           id
         }
       })
@@ -85,15 +86,15 @@ export async function getUserById(id:string){
   }
 }
 
-export async function updateUserById(id:string){
-  if(id){
+export async function updateUserById(id: string) {
+  if (id) {
     try {
       const updatedUser = await prismaClient.user.update({
-        where:{
+        where: {
           id
         },
-        data:{
-          isVerfied:true,
+        data: {
+          isVerfied: true,
         },
       });
       return updatedUser;

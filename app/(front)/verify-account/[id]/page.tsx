@@ -19,17 +19,18 @@ export default async function VerifyAccount({
   //Get a User
   const user = await getUserById(id);
   const userToken = user?.token;
+  const role = user?.role;
   return (
     <div className="min-h-screen flex items-center justify-center">
       <Card className="mx-auto max-w-md">
         <CardHeader>
-          <CardTitle className="text-xl">Verify Token</CardTitle>
+          <CardTitle className="text-xl">Verifikasi Token</CardTitle>
           <CardDescription>
-          Please enter the 6-figure pass code sent to your email - {user?.email}.
+          Silakan masukkan kode sandi 6 angka yang dikirimkan ke email Anda - {user?.email}.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <VerifyTokenForm userToken={userToken} id={id} />
+          <VerifyTokenForm role={role} userToken={userToken} id={id} />
         </CardContent>
       </Card>
     </div>

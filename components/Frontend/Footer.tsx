@@ -1,9 +1,13 @@
 "use client";
 import { Linkedin } from "lucide-react";
-import { title } from "process";
 import React from "react";
 
 export default function Footer() {
+  const handleClick = (name: string) => {
+    console.log(`${name} link clicked`);
+    // Add your custom click handling logic here
+  };
+
   const footerNavs = [
     {
       label: "Company",
@@ -13,15 +17,12 @@ export default function Footer() {
           name: "List your Service",
         },
         {
-          href: "javascript:void()",
           name: "Blog",
         },
         {
-          href: "javascript:void()",
           name: "Team",
         },
         {
-          href: "javascript:void()",
           name: "Careers",
         },
       ],
@@ -30,19 +31,15 @@ export default function Footer() {
       label: "Resources",
       items: [
         {
-          href: "javascript:void()",
-          name: "contact",
+          name: "Contact",
         },
         {
-          href: "javascript:void()",
           name: "Support",
         },
         {
-          href: "javascript:void()",
           name: "Docs",
         },
         {
-          href: "javascript:void()",
           name: "Pricing",
         },
       ],
@@ -51,20 +48,16 @@ export default function Footer() {
       label: "About",
       items: [
         {
-          href: "javascript:void()",
           name: "Terms",
         },
         {
-          href: "javascript:void()",
           name: "License",
         },
         {
-          href: "javascript:void()",
           name: "Privacy",
         },
         {
-          href: "javascript:void()",
-          name: "About US",
+          name: "About Us",
         },
       ],
     },
@@ -102,10 +95,9 @@ export default function Footer() {
       <div className="gap-6 justify-between md:flex">
         <div className="flex-1">
           <div className="max-w-xs">
-            <img src="https://www.floatui.com/logo.svg" className="w-32" />
+            <img src="https://www.floatui.com/logo.svg" className="w-32" alt="Logo" />
             <p className="leading-relaxed mt-2 text-[15px]">
-              Lorem Ipsum has been the industry's standard dummy text ever since
-              the 1500s.
+              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
             </p>
           </div>
         </div>
@@ -117,12 +109,21 @@ export default function Footer() {
               </h4>
               {item.items.map((el, idx) => (
                 <li key={idx}>
-                  <a
-                    href={el.href}
-                    className="hover:underline hover:text-indigo-600"
-                  >
-                    {el.name}
-                  </a>
+                  {el.href ? (
+                    <a
+                      href={el.href}
+                      className="hover:underline hover:text-indigo-600"
+                    >
+                      {el.name}
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() => handleClick(el.name)}
+                      className="hover:underline hover:text-indigo-600"
+                    >
+                      {el.name}
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>

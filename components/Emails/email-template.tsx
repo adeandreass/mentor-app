@@ -39,18 +39,18 @@ export const EmailTemplate = ({
         />
  
         <Text style={title}>
-          <strong>@{firstName}</strong>, thank you for Joining Us
+          <strong>{firstName}</strong>, terima kasih telah bergabung dengan kami
         </Text>
  
         <Section style={section}>
           <Text style={text}>
-            Hey <strong>{firstName}</strong>!
+            Halo <strong>{firstName}</strong>!
           </Text>
           <Text style={text}>{message}</Text>
  
           <Button style={button}>{token}</Button>
           <Text style={text}>
-            If you have any questions, feel free to reach out.
+          Jika Anda memiliki pertanyaan, jangan ragu untuk menghubungi kami.
           </Text>
         </Section>
         <Text style={links}>

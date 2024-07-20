@@ -12,7 +12,13 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-export default function RegisterWithBg({ role = "USER" }: { role?: UserRole }) {
+export default function RegisterWithBg({
+  role = "USER",
+  plan = "",
+}: {
+  role?: string | string[] | undefined;
+  plan?: string | string[] | undefined;
+}) {
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -20,12 +26,12 @@ export default function RegisterWithBg({ role = "USER" }: { role?: UserRole }) {
     reset,
     formState: { errors },
   } = useForm<RegisterInputProps>();
-  const router =useRouter()
+  const router = useRouter();
   async function onSubmit(data: RegisterInputProps) {
     // console.log(data);
     setIsLoading(true);
-
     data.role = role;
+    data.plan = plan;
     try {
       const user = await createUser(data);
       if (user && user.status === 200) {
@@ -33,7 +39,7 @@ export default function RegisterWithBg({ role = "USER" }: { role?: UserRole }) {
         reset();
         setIsLoading(false);
         toast.success("User Created successfully");
-        router.push(`/verify-account/${user.data?.id}`)
+        router.push(`/verify-account/${user.data?.id}`);
         console.log(user.data);
       } else {
         console.log(user.error);
@@ -47,57 +53,57 @@ export default function RegisterWithBg({ role = "USER" }: { role?: UserRole }) {
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Sign Up</h1>
+            <h1 className="text-3xl font-bold">Daftar</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your information to create your account
+              {/* Enter your information to create your account */}
             </p>
           </div>
           <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
             <TextInput
-              label="Full Name"
+              label="Nama"
               register={register}
               name="fullName"
               errors={errors}
-              placeholder="eg John doe"
+              placeholder="Nama"
             />
             <TextInput
-              label="Email Address"
+              label="Email"
               register={register}
               name="email"
               type="email"
               errors={errors}
-              placeholder="Eg. johndoe@gmail.com"
+              placeholder="Email"
             />
             <TextInput
-            label="Phone Number"
-            register={register}
-            name="phone"
-            type="tel"
-            errors={errors}
-            placeholder=""
-          />
+              label="Nomor Telepon"
+              register={register}
+              name="phone"
+              type="tel"
+              errors={errors}
+              placeholder="Nomor Telepon"
+            />
             <TextInput
               label="Password"
               register={register}
               name="password"
               type="password"
               errors={errors}
-              placeholder="******"
+              placeholder="Password"
             />
 
             <SubmitButton
-              title="Sign Up"
+              title="Daftar"
               isLoading={isLoading}
-              loadingTitle="Creating account please wait..."
+              loadingTitle="Membuat akun silahkan tunggu..."
             />
             <Button variant="outline" className="w-full">
-              Signup with Google
+              Daftar dengan Google
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">
-            Already have an account?{" "}
+            Sudah punya akun?{" "}
             <Link href="/login" className="underline">
-              Login
+              Masuk
             </Link>
           </div>
         </div>

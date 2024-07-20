@@ -1,4 +1,4 @@
-import { Stethoscope, Video } from "lucide-react";
+import { Book, Stethoscope, Video } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -42,9 +42,9 @@ export default function TeacherCard({
     <div className="border border-gray-200 dark:border-gray-600 bg-white dark:bg-slate-800 inline-flex flex-col py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all">
       <Link href="/teachers/slug">
         <h2 className="uppercase font-bold text-2xl tracking-widest">
-          Guru Terbaik di dunia
+          Jane Doe
         </h2>
-        {isInPerson && <p className="py-3">Lubuk Pakam</p>}
+        {isInPerson && <p className="py-3">Medan</p>}
         <div className="flex items-center gap-4 py-4">
           <div className="relative">
             <Image
@@ -62,8 +62,8 @@ export default function TeacherCard({
           </div>
           <div className="flex flex-col gap-2">
             <p className="flex items-center">
-              <Stethoscope className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span>Family Freindly</span>
+              <Book className="w-4 h-4 mr-2 flex-shrink-0" />
+              <span>Family Friendly</span>
             </p>
             <p className="bg-green-200 dark:text-slate-900 py-3 px-6 uppercase">Available Today</p>
           </div>

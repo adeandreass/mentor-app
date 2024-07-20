@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
-import { Microscope } from "lucide-react";
+import { BookUser, Microscope } from "lucide-react";
 import { docsConfig } from "@/config/docs";
 
 export function MainNav() {
@@ -15,7 +15,7 @@ export function MainNav() {
   return (
     <div className="mr-4 hidden md:flex">
       <Link href="/" className="mr-6 flex items-center space-x-2">
-        <Microscope className="h-6 w-6" />
+        <BookUser className="h-6 w-6" />
         <span className="hidden font-bold sm:inline-block">
           {siteConfig.name}
         </span>

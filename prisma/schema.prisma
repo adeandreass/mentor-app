@@ -1,12 +1,12 @@
 generator client {
   provider = "prisma-client-js"
 }
- 
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
- 
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
@@ -20,12 +20,12 @@ model Account {
   scope             String?
   id_token          String? @db.String
   session_state     String?
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@unique([provider, providerAccountId])
 }
- 
+
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
@@ -33,21 +33,22 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
- 
+
 enum UserRole {
   USER
   ADMIN
   TEACHER
 }
- 
+
 model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String
-  email         String   @unique
+  email         String    @unique
   phone         String
   emailVerified DateTime?
   image         String?
   role          UserRole  @default(USER)
+  plan          String?
   password      String
   accounts      Account[]
   sessions      Session[]

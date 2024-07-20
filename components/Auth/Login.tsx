@@ -55,25 +55,24 @@ export default function LoginFormWithBg() {
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Login</h1>
+            <h1 className="text-3xl font-bold">Masuk</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your email below to login to your account
+            {/* Masukkan email Anda untuk login ke akun Anda */}
             </p>
           </div>
           <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
           {showNotification && (
             <Alert color="failure" icon={HiInformationCircle}>
-              <span className="font-medium">Sign-in error!</span> Please Check
-              your credentials
+              <span className="font-medium">Masuk gagal!</span> Silakan periksa email dan password Anda
             </Alert>
              )}
              <TextInput
-            label="Email Address"
+            label="Email"
             register={register}
             name="email"
             type="email"
             errors={errors}
-            placeholder="Eg. johndoe@gmail.com"
+            placeholder="Email"
           />
             <TextInput
             label="Password"
@@ -82,22 +81,22 @@ export default function LoginFormWithBg() {
             name="password"
             type="password"
             errors={errors}
-            placeholder="******"
+            placeholder="Password"
           />
             
             <SubmitButton
-              title="Login"
-              isLoading={isLoading}
-              loadingTitle="Logging you in please wait..."
+               title="Masuk"
+               isLoading={isLoading}
+               loadingTitle="Masuk ke akun anda silahkan tunggu..."
             />
             <Button variant="outline" className="w-full">
-              Login with Google
+              Login dengan Google
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
+            Belum punya akun?{" "}
             <Link href="/register" className="underline">
-              Sign up
+              Daftar
             </Link>
           </div>
         </div>

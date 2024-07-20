@@ -8,7 +8,7 @@ import TeachersListCarousel from "./TeachersListCarousel";
 import { Button } from "./ui/button";
 
 export default function TeachersList({
-  title = "Telehealth visit",
+  title = "Guru",
   isInPerson,
   className = "bg-pink-100 dark:bg-blue-800 py-8 lg:py-24",
 }: {
