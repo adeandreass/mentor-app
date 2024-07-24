@@ -8,7 +8,7 @@ import { Resend } from "resend";
 import EmailTemplate from "@/components/Emails/email-template";
 
 export async function createUser(formData: RegisterInputProps) {
-  const resend = new Resend('re_hcdkSbs1_ZWo6AbWCSq9SyJs3ftw9hhTh');
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const { fullName, email, role, phone, password, plan } = formData;
   try {
     const existingUser = await prismaClient.user.findUnique({
