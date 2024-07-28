@@ -2,9 +2,15 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/config/site";
 const inter = Inter({ subsets: ["latin"] });
+
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
+
+// import { ourFileRouter } from "~/app/api/uploadthing/core";
 
 export const metadata: Metadata = {
   title: {
@@ -56,7 +62,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
-}
+};
 
 export default function RootLayout({
   children,
@@ -66,8 +72,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <Providers>
-        <ThemeProvider
+          <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
@@ -76,7 +83,7 @@ export default function RootLayout({
             {children}
           </ThemeProvider>
         </Providers>
-        </body>
+      </body>
     </html>
   );
 }

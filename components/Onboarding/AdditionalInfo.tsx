@@ -1,7 +1,7 @@
 "use client";
 import {
+  AdditionalFormProps,
   BioDataFormProps,
-  ContactFormProps,
   type RegisterInputProps,
 } from "@/types/types";
 import Link from "next/link";
@@ -19,48 +19,28 @@ import { DatePickerInput } from "../FormInputs/DatePickerInput";
 import { TextAreaInput } from "../FormInputs/TextAreaInput";
 import RadioInput from "../FormInputs/RadioInput";
 import ImageInput from "../FormInputs/ImageInput";
+import MultipleFileUpload from "../FormInputs/MultipleFileUpload";
 export type StepFormProps = {
   page: string;
   title: string;
   description: string;
 };
-export default function ContactInfo({
+export default function AdditionalInfo({
   page,
   title,
   description,
 }: StepFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [dob, setDOB] = useState<Date>();
-  const [expiry, setExpiry] = useState<Date>();
-  const [profileImage, setProfileImage] = useState(
-    "https://utfs.io/f/acf62ede-cc6c-4797-b0ee-3fae55d8d844-3vabb.png"
-  );
-  const genderOptions = [
-    {
-      label: "Male",
-      value: "male",
-    },
-    {
-      label: "Female",
-      value: "female",
-    },
-  ];
+  const [additionalDocs, setAdditionalDocs] = useState([]);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ContactFormProps>();
+  } = useForm<AdditionalFormProps>();
   const router = useRouter();
-  async function onSubmit(data: ContactFormProps) {
-    if (!dob) {
-      toast.error("Tanggal Lahir wajib diisi");
-      return;
-    }
-    if (!expiry) {
-      toast.error("Tanggal Kadaluwarsa wajib diisi");
-      return;
-    }
+  async function onSubmit(data: AdditionalFormProps) {
     data.page = page;
     console.log(data);
     // setIsLoading(true);
@@ -75,45 +55,32 @@ export default function ContactInfo({
       </div>
       <form className=" py-4 px-4 mx-auto" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4 grid-cols-2">
-          <TextInput
-            label="Email"
+          <TextAreaInput
+            label="Education History"
             register={register}
-            name="email"
+            name="educationHistory"
             errors={errors}
-            placeholder="Email"
-            className="col-span-full sm:col-span-1"
+            placeholder="Enter your Education History"
           />
-          <TextInput
-            label="Phone Number"
+          <TextAreaInput
+            label="Published Works or Research"
             register={register}
-            name="phone"
+            name="research"
             errors={errors}
-            placeholder="Phone Number"
-            className="col-span-full sm:col-span-1"
+            placeholder="Enter any Published Works or Research"
           />
-          <TextInput
-            label="Country"
+          <TextAreaInput
+            label="Any special achievements or accomplishments"
             register={register}
-            name="country"
+            name="accomplishments"
             errors={errors}
-            placeholder="Country"
-            className="col-span-full sm:col-span-1"
+            placeholder="Enter any special achievements or accomplishments"
           />
-          <TextInput
-            label="City"
-            register={register}
-            name="city"
-            errors={errors}
-            placeholder="City"
-            className="col-span-full sm:col-span-1"
-          />
-          <TextInput
-            label="State"
-            register={register}
-            name="state"
-            errors={errors}
-            placeholder="State"
-            className="col-span-full sm:col-span-1"
+          <MultipleFileUpload
+            label="any additional documents (CV, Sertifikat, etc.) Upload"
+            files={additionalDocs}
+            setFiles={setAdditionalDocs}
+            endpoint="additionalDocs"
           />
         </div>
         <div className="mt-8 flex justify-center items-center">

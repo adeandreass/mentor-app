@@ -1,9 +1,5 @@
 "use client";
-import {
-  BioDataFormProps,
-  ContactFormProps,
-  type RegisterInputProps,
-} from "@/types/types";
+import { BioDataFormProps, EducationFormProps, type RegisterInputProps } from "@/types/types";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import TextInput from "../FormInputs/TextInput";
@@ -19,12 +15,13 @@ import { DatePickerInput } from "../FormInputs/DatePickerInput";
 import { TextAreaInput } from "../FormInputs/TextAreaInput";
 import RadioInput from "../FormInputs/RadioInput";
 import ImageInput from "../FormInputs/ImageInput";
-export type StepFormProps = {
-  page: string;
-  title: string;
-  description: string;
-};
-export default function ContactInfo({
+import { StepFormProps } from "./BioDataForm";
+import SelectInput from "../FormInputs/SelectInput";
+import ArrayItemsInput from "../FormInputs/ArrayInput";
+import MultipleImageInput from "../FormInputs/MultipleImageInput";
+import MultipleFileUpload from "../FormInputs/MultipleFileUpload";
+
+export default function EducationInfo({
   page,
   title,
   description,
@@ -32,27 +29,26 @@ export default function ContactInfo({
   const [isLoading, setIsLoading] = useState(false);
   const [dob, setDOB] = useState<Date>();
   const [expiry, setExpiry] = useState<Date>();
-  const [profileImage, setProfileImage] = useState(
-    "https://utfs.io/f/acf62ede-cc6c-4797-b0ee-3fae55d8d844-3vabb.png"
-  );
-  const genderOptions = [
-    {
-      label: "Male",
-      value: "male",
-    },
-    {
-      label: "Female",
-      value: "female",
-    },
+  const primarySubject = [
+    { value: "Matematika", label: "Matematika" },
+    { value: "Fisika", label: "Fisika" },
+    { value: "Kimia", label: "Kimia" },
+    { value: "Biologi", label: "Biologi" },
+    { value: "Ekonomi", label: "Ekonomi" },
   ];
+
+  const [secondarySubject, setSecondarySubject] = useState([]);
+  const [docs, setDocs] = useState([]);
+
+  console.log(docs);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ContactFormProps>();
+  } = useForm<EducationFormProps>();
   const router = useRouter();
-  async function onSubmit(data: ContactFormProps) {
+  async function onSubmit(data: EducationFormProps) {
     if (!dob) {
       toast.error("Tanggal Lahir wajib diisi");
       return;
@@ -76,44 +72,38 @@ export default function ContactInfo({
       <form className=" py-4 px-4 mx-auto" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4 grid-cols-2">
           <TextInput
-            label="Email"
+            label="Education School"
             register={register}
-            name="email"
+            name="educationSchool"
             errors={errors}
-            placeholder="Email"
-            className="col-span-full sm:col-span-1"
+            placeholder="Enter Education School"
           />
           <TextInput
-            label="Phone Number"
+            label="Graduation Year"
             register={register}
-            name="phone"
+            name="graduationYear"
             errors={errors}
-            placeholder="Phone Number"
+            placeholder="Enter Graduation Year"
             className="col-span-full sm:col-span-1"
           />
-          <TextInput
-            label="Country"
+          <SelectInput
+            label="Select Your Primary Subject"
+            name="primarySubject"
             register={register}
-            name="country"
-            errors={errors}
-            placeholder="Country"
             className="col-span-full sm:col-span-1"
+            options={primarySubject}
+            multiple={false}
           />
-          <TextInput
-            label="City"
-            register={register}
-            name="city"
-            errors={errors}
-            placeholder="City"
-            className="col-span-full sm:col-span-1"
+          <ArrayItemsInput
+            setItems={setSecondarySubject}
+            items={secondarySubject}
+            itemTitle="Subject"
           />
-          <TextInput
-            label="State"
-            register={register}
-            name="state"
-            errors={errors}
-            placeholder="State"
-            className="col-span-full sm:col-span-1"
+          <MultipleFileUpload
+            label="Upload your academic documents (Max of 4 docs)"
+            files={docs}
+            setFiles={setDocs}
+            endpoint="teacherProfessionDocs"
           />
         </div>
         <div className="mt-8 flex justify-center items-center">

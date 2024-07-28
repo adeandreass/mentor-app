@@ -1,7 +1,7 @@
 "use client";
 import {
   BioDataFormProps,
-  ContactFormProps,
+  PraticeFormProps,
   type RegisterInputProps,
 } from "@/types/types";
 import Link from "next/link";
@@ -19,12 +19,17 @@ import { DatePickerInput } from "../FormInputs/DatePickerInput";
 import { TextAreaInput } from "../FormInputs/TextAreaInput";
 import RadioInput from "../FormInputs/RadioInput";
 import ImageInput from "../FormInputs/ImageInput";
+import ArrayItemsInput from "../FormInputs/ArrayInput";
+import SelectInput from "../FormInputs/SelectInput";
+// import { StepFormProps } from "./BioDataForm";
+
 export type StepFormProps = {
   page: string;
   title: string;
   description: string;
 };
-export default function ContactInfo({
+
+export default function PraticeInfo({
   page,
   title,
   description,
@@ -35,36 +40,31 @@ export default function ContactInfo({
   const [profileImage, setProfileImage] = useState(
     "https://utfs.io/f/acf62ede-cc6c-4797-b0ee-3fae55d8d844-3vabb.png"
   );
-  const genderOptions = [
+  const insuranceOptions = [
     {
-      label: "Male",
-      value: "male",
+      label: "No",
+      value: "no",
     },
     {
-      label: "Female",
-      value: "female",
+      label: "Yes",
+      value: "yes",
     },
   ];
+  const [services, setServices] = useState([]);
+  const [languages, setLanguages] = useState([]);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ContactFormProps>();
+  } = useForm<PraticeFormProps>();
   const router = useRouter();
-  async function onSubmit(data: ContactFormProps) {
-    if (!dob) {
-      toast.error("Tanggal Lahir wajib diisi");
-      return;
-    }
-    if (!expiry) {
-      toast.error("Tanggal Kadaluwarsa wajib diisi");
-      return;
-    }
+  async function onSubmit(data: PraticeFormProps) {
     data.page = page;
     console.log(data);
     // setIsLoading(true);
   }
+
   return (
     <div className="w-full">
       <div className="text-center border-b border-gray-200 pb-4">
@@ -76,44 +76,72 @@ export default function ContactInfo({
       <form className=" py-4 px-4 mx-auto" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4 grid-cols-2">
           <TextInput
-            label="Email"
+            label="School Name"
             register={register}
-            name="email"
+            name="schoolName"
             errors={errors}
-            placeholder="Email"
+            placeholder="Enter School Name"
             className="col-span-full sm:col-span-1"
           />
           <TextInput
-            label="Phone Number"
+            label="School Address"
             register={register}
-            name="phone"
+            name="schoolAddress"
             errors={errors}
-            placeholder="Phone Number"
+            placeholder="Enter School Address"
             className="col-span-full sm:col-span-1"
           />
           <TextInput
-            label="Country"
+            label="School Contact Number"
             register={register}
-            name="country"
+            name="schoolContactNumber"
             errors={errors}
-            placeholder="Country"
+            placeholder="Enter School Contact Number"
             className="col-span-full sm:col-span-1"
           />
           <TextInput
-            label="City"
+            label="School Email Address"
             register={register}
-            name="city"
+            name="schoolEmailAddress"
             errors={errors}
-            placeholder="City"
+            placeholder="Enter School Email Address"
             className="col-span-full sm:col-span-1"
           />
           <TextInput
-            label="State"
+            label="School Website (Optional)"
             register={register}
-            name="state"
+            name="schoolWebsite"
             errors={errors}
-            placeholder="State"
+            placeholder="Enter School Website"
             className="col-span-full sm:col-span-1"
+            isRequired={false}
+          />
+          <TextInput
+            label="School Hours Of Operation"
+            register={register}
+            name="schoolHoursOfOperation"
+            errors={errors}
+            placeholder="Enter School Of Operation"
+            className="col-span-full sm:col-span-1"
+          />
+
+          <SelectInput
+            label="Do you accept Insurance?"
+            name="insurance"
+            register={register}
+            className="col-span-full sm:col-span-1"
+            options={insuranceOptions}
+            multiple={false}
+          />
+          <ArrayItemsInput
+            setItems={setServices}
+            items={services}
+            itemTitle="Educational Services"
+          />
+          <ArrayItemsInput
+            setItems={setLanguages}
+            items={languages}
+            itemTitle="Languages Spoken"
           />
         </div>
         <div className="mt-8 flex justify-center items-center">

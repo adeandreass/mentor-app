@@ -1,9 +1,5 @@
 "use client";
-import {
-  BioDataFormProps,
-  ContactFormProps,
-  type RegisterInputProps,
-} from "@/types/types";
+import { BioDataFormProps, ProfileFormProps, type RegisterInputProps } from "@/types/types";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import TextInput from "../FormInputs/TextInput";
@@ -19,12 +15,9 @@ import { DatePickerInput } from "../FormInputs/DatePickerInput";
 import { TextAreaInput } from "../FormInputs/TextAreaInput";
 import RadioInput from "../FormInputs/RadioInput";
 import ImageInput from "../FormInputs/ImageInput";
-export type StepFormProps = {
-  page: string;
-  title: string;
-  description: string;
-};
-export default function ContactInfo({
+import { StepFormProps } from "./BioDataForm";
+
+export default function ProfileInfoForm({
   page,
   title,
   description,
@@ -50,9 +43,9 @@ export default function ContactInfo({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ContactFormProps>();
+  } = useForm<ProfileFormProps>();
   const router = useRouter();
-  async function onSubmit(data: ContactFormProps) {
+  async function onSubmit(data: ProfileFormProps) {
     if (!dob) {
       toast.error("Tanggal Lahir wajib diisi");
       return;
@@ -61,6 +54,7 @@ export default function ContactInfo({
       toast.error("Tanggal Kadaluwarsa wajib diisi");
       return;
     }
+    data.teacherLicenseExpiry = expiry;
     data.page = page;
     console.log(data);
     // setIsLoading(true);
@@ -76,44 +70,38 @@ export default function ContactInfo({
       <form className=" py-4 px-4 mx-auto" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4 grid-cols-2">
           <TextInput
-            label="Email"
+            label="Teacher License"
             register={register}
-            name="email"
+            name="teacherLicense"
             errors={errors}
-            placeholder="Email"
-            className="col-span-full sm:col-span-1"
+            placeholder="Enter Teacher License"
           />
           <TextInput
-            label="Phone Number"
+            label="Years of Experience"
             register={register}
-            name="phone"
+            name="teacherLicense"
             errors={errors}
-            placeholder="Phone Number"
+            placeholder="Enter Teacher License"
             className="col-span-full sm:col-span-1"
           />
-          <TextInput
-            label="Country"
-            register={register}
-            name="country"
-            errors={errors}
-            placeholder="Country"
+          <DatePickerInput
             className="col-span-full sm:col-span-1"
+            date={expiry}
+            setDate={setExpiry}
+            title="Teacher License Expiry"
           />
-          <TextInput
-            label="City"
+          <TextAreaInput
+            label="Biography"
             register={register}
-            name="city"
+            name="bio"
             errors={errors}
-            placeholder="City"
-            className="col-span-full sm:col-span-1"
+            placeholder="Enter Your Biography"
           />
-          <TextInput
-            label="State"
-            register={register}
-            name="state"
-            errors={errors}
-            placeholder="State"
-            className="col-span-full sm:col-span-1"
+          <ImageInput
+            label="Professional Profile Image"
+            imageUrl={profileImage}
+            setImageUrl={setProfileImage}
+            endpoint="teacherProfileImage"
           />
         </div>
         <div className="mt-8 flex justify-center items-center">
