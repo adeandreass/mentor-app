@@ -39,7 +39,15 @@ const FormSchema = z.object({
   }),
 });
 
-export default function TrackingForm() {
+export default function TrackingForm({
+  userToken,
+  id,
+  role,
+}: {
+  userToken: number | undefined;
+  id: string;
+  role: UserRole | undefined;
+}) {
   const [loading, setLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const router = useRouter();
