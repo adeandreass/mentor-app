@@ -25,11 +25,8 @@ import {
 } from "../ui/select";
 import { Label } from "../ui/label";
 import { Plus } from "lucide-react";
-export type StepFormProps = {
-  page: string;
-  title: string;
-  description: string;
-};
+import { StepFormProps } from "./BioDataForm";
+
 export default function Availability({
   page,
   title,

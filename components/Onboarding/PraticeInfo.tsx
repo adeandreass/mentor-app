@@ -21,13 +21,8 @@ import RadioInput from "../FormInputs/RadioInput";
 import ImageInput from "../FormInputs/ImageInput";
 import ArrayItemsInput from "../FormInputs/ArrayInput";
 import SelectInput from "../FormInputs/SelectInput";
+import { StepFormProps } from "./BioDataForm";
 // import { StepFormProps } from "./BioDataForm";
-
-export type StepFormProps = {
-  page: string;
-  title: string;
-  description: string;
-};
 
 export default function PraticeInfo({
   page,

@@ -22,6 +22,8 @@ export type BioDataFormProps = {
     dob?: Date;
     gender: string;
     page: string;
+    userId?: string | undefined;
+    trackingNumber: string;
 }
 
 export type ProfileFormProps = {

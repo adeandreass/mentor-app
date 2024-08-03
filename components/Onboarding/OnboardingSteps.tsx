@@ -11,10 +11,12 @@ import PraticeInfo from "./PraticeInfo";
 import EducationInfo from "./EducationInfo";
 import AdditionalInfo from "./AdditionalInfo";
 import Availability from "./Availability";
+import { useOnboardingContext } from "@/context/context";
 
 export default function OnboardingSteps({ id }: { id: string }) {
   const params = useSearchParams();
   const page = params.get("page") ?? "bio-data";
+  const { truckingNumber, teacherProfileId } = useOnboardingContext();
   console.log(page);
   const steps = [
     {
@@ -22,9 +24,12 @@ export default function OnboardingSteps({ id }: { id: string }) {
       page: "bio-data",
       component: (
         <BioDataForm
+          userId={id}
           title="Bio Data"
           description="Please fill in your Bio Data Info"
           page={page}
+          nextPage="profile"
+          formId={teacherProfileId}
         />
       ),
     },
@@ -36,6 +41,9 @@ export default function OnboardingSteps({ id }: { id: string }) {
           title="Profile Information"
           description="Please fill in your Profile Info"
           page={page}
+          nextPage="contact"
+          formId={teacherProfileId}
+          userId={id}
         />
       ),
     },
@@ -47,6 +55,9 @@ export default function OnboardingSteps({ id }: { id: string }) {
           title="Contact Information"
           description="Please fill in your Contact Info"
           page={page}
+          nextPage="education"
+          formId={teacherProfileId}
+          userId={id}
         />
       ),
     },
@@ -58,6 +69,9 @@ export default function OnboardingSteps({ id }: { id: string }) {
           title="Education Information"
           description="Please fill in your Education Info"
           page={page}
+          nextPage="pratice"
+          formId={teacherProfileId}
+          userId={id}
         />
       ),
     },
@@ -69,6 +83,9 @@ export default function OnboardingSteps({ id }: { id: string }) {
           title="Pratice Information"
           description="Please fill in your Pratice Info"
           page={page}
+          nextPage="additional"
+          formId={teacherProfileId}
+          userId={id}
         />
       ),
     },
@@ -80,6 +97,9 @@ export default function OnboardingSteps({ id }: { id: string }) {
           title="Additional Information"
           description="Please fill in your Additional Info"
           page={page}
+          nextPage="availability"
+          formId={teacherProfileId}
+          userId={id}
         />
       ),
     },
@@ -91,6 +111,8 @@ export default function OnboardingSteps({ id }: { id: string }) {
           title="Availability"
           description="Please fill in your Availability Info"
           page={page}
+          formId={teacherProfileId}
+          userId={id}
         />
       ),
     },
@@ -116,6 +138,15 @@ export default function OnboardingSteps({ id }: { id: string }) {
         })}
       </div>
       <div className="col-span-full sm:col-span-9 p-4">
+        {truckingNumber && (
+          <p className="border-b border-gray-200 text-teal-600 pb-2">
+            your Trucking Number is
+            <span className="font-bold"> {truckingNumber}</span>{" "}
+            <span className="text-xs">
+              (Use this to Resume application or Check Status)
+            </span>
+          </p>
+        )}
         {currentStep?.component}
       </div>
     </div>

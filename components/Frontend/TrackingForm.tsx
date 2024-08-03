@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { HiInformationCircle } from "react-icons/hi";
-import { Alert } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -29,6 +28,10 @@ import {
 import { updateUserById } from "@/actions/users";
 import SubmitButton from "../FormInputs/SubmitButton";
 import { UserRole } from "@prisma/client";
+import { Input } from "../ui/input";
+import Link from "next/link";
+import { getApplicationByTrack } from "@/actions/onboarding";
+import { Alert } from "flowbite-react";
 
 const FormSchema = z.object({
   token: z.string().min(6, {
@@ -36,95 +39,77 @@ const FormSchema = z.object({
   }),
 });
 
-export default function VerifyTokenForm({
-  userToken,
-  id,
-  role,
-}: {
-  userToken: number | undefined;
-  id: string;
-  role: UserRole | undefined;
-}) {
+export default function TrackingForm() {
   const [loading, setLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const router = useRouter();
+  const FormSchema = z.object({
+    trackingNumber: z.string().min(2, {
+      message: "Username must be at least 10 characters.",
+    }),
+  });
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      token: "",
+      trackingNumber: "",
     },
   });
-
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
-    const userInputToken = parseInt(data.token);
-    if (userInputToken === userToken) {
-      setShowNotification(false);
-      //Update User
-      try {
-        await updateUserById(id);
+    try {
+      const res = await getApplicationByTrack(data.trackingNumber);
+      if (res?.status === 404) {
+        setShowNotification(true);
         setLoading(false);
-        // reset();
-        toast.success("Account Verified");
-        if (role === "TEACHER") {
-          router.push(`/onboarding/${id}`);
-        } else {
-          router.push("/login");
-        }
-      } catch (error) {
-        setLoading(false);
-        console.log(error);
       }
-    } else {
-      setShowNotification(true);
+      if (res?.status === 200) {
+        toast.success("Redirecting you");
+        // setUserId(res.data?.userId!);
+        // setPage(res.data?.page!);
+        // setTrackingSuccesfull(true);
+        setLoading(false);
+        router.push(`/onboarding/${res.data?.userId}?page=${res.data?.page}`);
+      } else {
+        throw new Error("Something went wrong");
+      }
+    } catch (error) {
+      toast.error("Something went wrong, try again");
       setLoading(false);
+      console.log(error);
     }
-    console.log(userInputToken);
   }
 
   return (
     <Form {...form}>
       {showNotification && (
         <Alert color="failure" icon={HiInformationCircle}>
-          <span className="font-medium">Wrong Token!</span> Please Check the
-          token and Enter again
+          <span className="font-medium">Wrong Tracking Number!</span> Please
+          Check the token number and Enter again
         </Alert>
       )}
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
         <FormField
           control={form.control}
-          name="token"
+          name="trackingNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Enter Token Here</FormLabel>
+              <FormLabel>Username</FormLabel>
               <FormControl>
-                <InputOTP maxLength={6} {...field}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                  </InputOTPGroup>
-                  <InputOTPSeparator />
-                  <InputOTPGroup>
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                  </InputOTPGroup>
-                </InputOTP>
+                <Input placeholder="eg VX5PNQ89KO" {...field} />
               </FormControl>
-              {/* <FormDescription>
-                Please enter the 6-figure pass code sent to your email.
-              </FormDescription> */}
+              <FormDescription>
+                {/* This is your public display name. */}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
 
         <SubmitButton
-          title="Submit to Verify"
+          title="Submit to Resume"
           isLoading={loading}
-          loadingTitle="Verifying please wait..."
+          loadingTitle="Fetching please wait..."
         />
       </form>
     </Form>

@@ -19,15 +19,16 @@ import { DatePickerInput } from "../FormInputs/DatePickerInput";
 import { TextAreaInput } from "../FormInputs/TextAreaInput";
 import RadioInput from "../FormInputs/RadioInput";
 import ImageInput from "../FormInputs/ImageInput";
-export type StepFormProps = {
-  page: string;
-  title: string;
-  description: string;
-};
+import { StepFormProps } from "./BioDataForm";
+import { updateTeacherProfile } from "@/actions/onboarding";
+
 export default function ContactInfo({
   page,
   title,
   description,
+  formId,
+  userId,
+  nextPage,
 }: StepFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [dob, setDOB] = useState<Date>();
@@ -53,17 +54,23 @@ export default function ContactInfo({
   } = useForm<ContactFormProps>();
   const router = useRouter();
   async function onSubmit(data: ContactFormProps) {
-    if (!dob) {
-      toast.error("Tanggal Lahir wajib diisi");
-      return;
-    }
-    if (!expiry) {
-      toast.error("Tanggal Kadaluwarsa wajib diisi");
-      return;
-    }
+    setIsLoading(true);
     data.page = page;
     console.log(data);
-    // setIsLoading(true);
+
+    try {
+      const res = await updateTeacherProfile(formId, data);
+      if (res?.status === 201) {
+        setIsLoading(false);
+        router.push(`/onboarding/${userId}?page=${nextPage}`);
+        console.log(res.data);
+      } else {
+        setIsLoading(false);
+        throw new Error("Something went wrong");
+      }
+    } catch (error) {
+      setIsLoading(false);
+    }
   }
   return (
     <div className="w-full">

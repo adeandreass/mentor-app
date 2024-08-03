@@ -1,5 +1,9 @@
 "use client";
-import { BioDataFormProps, EducationFormProps, type RegisterInputProps } from "@/types/types";
+import {
+  BioDataFormProps,
+  EducationFormProps,
+  type RegisterInputProps,
+} from "@/types/types";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import TextInput from "../FormInputs/TextInput";
@@ -20,16 +24,18 @@ import SelectInput from "../FormInputs/SelectInput";
 import ArrayItemsInput from "../FormInputs/ArrayInput";
 import MultipleImageInput from "../FormInputs/MultipleImageInput";
 import MultipleFileUpload from "../FormInputs/MultipleFileUpload";
+import { updateTeacherProfile } from "@/actions/onboarding";
 
 export default function EducationInfo({
   page,
   title,
   description,
+  formId,
+  userId,
+  nextPage,
 }: StepFormProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [dob, setDOB] = useState<Date>();
-  const [expiry, setExpiry] = useState<Date>();
-  const primarySubject = [
+  const specialties = [
     { value: "Matematika", label: "Matematika" },
     { value: "Fisika", label: "Fisika" },
     { value: "Kimia", label: "Kimia" },
@@ -37,8 +43,20 @@ export default function EducationInfo({
     { value: "Ekonomi", label: "Ekonomi" },
   ];
 
-  const [secondarySubject, setSecondarySubject] = useState([]);
-  const [docs, setDocs] = useState([]);
+  const [otherSpecalities, setOtherSpecalities] = useState([]);
+  const [docs, setDocs] = useState([
+    {
+      url: "https://utfs.io/f/a1d328da-1011-487a-a03a-4a132f4bf23f-z4iomy.pdf",
+      title:
+        "GEMASTIK XVII Perangkat Lunak - GEMASTIK24-115424925 - Computatrum - LearnMate - Proposal.pdf",
+      size: 1017285,
+    },
+    {
+      url: "https://utfs.io/f/b18f4750-d291-4ea5-8f28-e2d084e0459f-u2i50c.pdf",
+      title: "pedoman gemastik 2024-966690 (1).pdf",
+      size: 1393840,
+    },
+  ]);
 
   console.log(docs);
   const {
@@ -49,17 +67,24 @@ export default function EducationInfo({
   } = useForm<EducationFormProps>();
   const router = useRouter();
   async function onSubmit(data: EducationFormProps) {
-    if (!dob) {
-      toast.error("Tanggal Lahir wajib diisi");
-      return;
-    }
-    if (!expiry) {
-      toast.error("Tanggal Kadaluwarsa wajib diisi");
-      return;
-    }
     data.page = page;
+    data.otherSpecalities = otherSpecalities;
+    data.boardCertificates = docs.map((doc) => doc.url);
     console.log(data);
-    // setIsLoading(true);
+    setIsLoading(true);
+    try {
+      const res = await updateTeacherProfile(formId, data);
+      if (res?.status === 201) {
+        setIsLoading(false);
+        router.push(`/onboarding/${userId}?page=${nextPage}`);
+        console.log(res.data);
+      } else {
+        setIsLoading(false);
+        throw new Error("Something went wrong");
+      }
+    } catch (error) {
+      setIsLoading(false);
+    }
   }
   return (
     <div className="w-full">
@@ -81,6 +106,7 @@ export default function EducationInfo({
           <TextInput
             label="Graduation Year"
             register={register}
+            type="number"
             name="graduationYear"
             errors={errors}
             placeholder="Enter Graduation Year"
@@ -88,15 +114,15 @@ export default function EducationInfo({
           />
           <SelectInput
             label="Select Your Primary Subject"
-            name="primarySubject"
+            name="primarySpecalization"
             register={register}
             className="col-span-full sm:col-span-1"
-            options={primarySubject}
+            options={specialties}
             multiple={false}
           />
           <ArrayItemsInput
-            setItems={setSecondarySubject}
-            items={secondarySubject}
+            setItems={setOtherSpecalities}
+            items={otherSpecalities}
             itemTitle="Subject"
           />
           <MultipleFileUpload

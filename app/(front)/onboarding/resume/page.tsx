@@ -2,6 +2,7 @@
 // import VerifyTokenForm from "@/components/VerifyTokenForm";
 
 import { getUserById } from "@/actions/users";
+import TrackingForm from "@/components/Frontend/TrackingForm";
 import VerifyTokenForm from "@/components/Frontend/VerifyTokenForm";
 import {
   Card,
@@ -24,14 +25,14 @@ export default async function VerifyAccount({
     <div className="min-h-screen flex items-center justify-center">
       <Card className="mx-auto max-w-md">
         <CardHeader>
-          <CardTitle className="text-xl">Verifikasi Token</CardTitle>
+          <CardTitle className="text-xl">Resume Your Application</CardTitle>
           <CardDescription>
-            Silakan masukkan kode sandi 6 angka yang dikirimkan ke email Anda -{" "}
-            {user?.email}.
+            Please enter the 10-Charachter Trucking Number that was given to
+            you.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <VerifyTokenForm role={role} userToken={userToken} id={id} />
+          <TrackingForm role={role} userToken={userToken} id={id} />
         </CardContent>
       </Card>
     </div>

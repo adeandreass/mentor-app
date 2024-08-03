@@ -20,11 +20,8 @@ import { TextAreaInput } from "../FormInputs/TextAreaInput";
 import RadioInput from "../FormInputs/RadioInput";
 import ImageInput from "../FormInputs/ImageInput";
 import MultipleFileUpload from "../FormInputs/MultipleFileUpload";
-export type StepFormProps = {
-  page: string;
-  title: string;
-  description: string;
-};
+import { StepFormProps } from "./BioDataForm";
+
 export default function AdditionalInfo({
   page,
   title,

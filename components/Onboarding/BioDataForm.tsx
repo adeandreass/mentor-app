@@ -15,22 +15,35 @@ import { DatePickerInput } from "../FormInputs/DatePickerInput";
 import { TextAreaInput } from "../FormInputs/TextAreaInput";
 import RadioInput from "../FormInputs/RadioInput";
 import ImageInput from "../FormInputs/ImageInput";
+import { generateTrackingNumber } from "@/lib/generateTracking";
+import { createTeacherProfile } from "@/actions/onboarding";
+import { useOnboardingContext } from "@/context/context";
 export type StepFormProps = {
   page: string;
   title: string;
   description: string;
+  userId?: string;
+  nextPage?: string;
+  formId?: string;
 };
 export default function BioDataForm({
   page,
   title,
   description,
+  userId,
+  nextPage,
+  formId = "",
 }: StepFormProps) {
+  const {
+    truckingNumber,
+    setTruckingNumber,
+    teacherProfileId,
+    setTeacherProfileId,
+  } = useOnboardingContext();
+  console.log(truckingNumber, teacherProfileId);
   const [isLoading, setIsLoading] = useState(false);
   const [dob, setDOB] = useState<Date>();
-  const [expiry, setExpiry] = useState<Date>();
-  const [profileImage, setProfileImage] = useState(
-    "https://utfs.io/f/acf62ede-cc6c-4797-b0ee-3fae55d8d844-3vabb.png"
-  );
+
   const genderOptions = [
     {
       label: "Male",
@@ -49,14 +62,36 @@ export default function BioDataForm({
   } = useForm<BioDataFormProps>();
   const router = useRouter();
   async function onSubmit(data: BioDataFormProps) {
+    setIsLoading(true);
     if (!dob) {
       toast.error("Tanggal Lahir wajib diisi");
       return;
     }
+    data.userId = userId;
     data.dob = dob;
+    data.trackingNumber = generateTrackingNumber();
     data.page = page;
     console.log(data);
     // setIsLoading(true);
+
+    try {
+      const res = await createTeacherProfile(data);
+
+      if (res.status === 201) {
+        setIsLoading(false);
+        toast.success("Berhasil membuat profile");
+        setTruckingNumber(res.data?.trackingNumber ?? "");
+        setTeacherProfileId(res.data?.id ?? "");
+        router.push(`/onboarding/${userId}?page=${nextPage}`);
+        console.log(res.data);
+      } else {
+        setIsLoading(false);
+        throw new Error("Something went wrong");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
   }
   return (
     <div className="w-full">
@@ -81,6 +116,7 @@ export default function BioDataForm({
             register={register}
             name="middleName"
             errors={errors}
+            isRequired={false}
             placeholder="Nama Tengah"
             className="col-span-full sm:col-span-1"
           />

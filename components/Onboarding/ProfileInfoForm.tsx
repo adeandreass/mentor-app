@@ -1,5 +1,9 @@
 "use client";
-import { BioDataFormProps, ProfileFormProps, type RegisterInputProps } from "@/types/types";
+import {
+  BioDataFormProps,
+  ProfileFormProps,
+  type RegisterInputProps,
+} from "@/types/types";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import TextInput from "../FormInputs/TextInput";
@@ -16,18 +20,24 @@ import { TextAreaInput } from "../FormInputs/TextAreaInput";
 import RadioInput from "../FormInputs/RadioInput";
 import ImageInput from "../FormInputs/ImageInput";
 import { StepFormProps } from "./BioDataForm";
+import { useOnboardingContext } from "@/context/context";
+import { updateTeacherProfile } from "@/actions/onboarding";
 
 export default function ProfileInfoForm({
   page,
   title,
   description,
+  formId,
+  userId,
+  nextPage,
 }: StepFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [dob, setDOB] = useState<Date>();
   const [expiry, setExpiry] = useState<Date>();
   const [profileImage, setProfileImage] = useState(
-    "https://utfs.io/f/acf62ede-cc6c-4797-b0ee-3fae55d8d844-3vabb.png"
+    "https://utfs.io/f/6203a539-b50b-48bf-b82b-4b24b55f9fcc-86tytr.png"
   );
+  const { truckingNumber, teacherProfileId } = useOnboardingContext();
   const genderOptions = [
     {
       label: "Male",
@@ -46,18 +56,29 @@ export default function ProfileInfoForm({
   } = useForm<ProfileFormProps>();
   const router = useRouter();
   async function onSubmit(data: ProfileFormProps) {
-    if (!dob) {
-      toast.error("Tanggal Lahir wajib diisi");
-      return;
-    }
+    setIsLoading(true);
     if (!expiry) {
       toast.error("Tanggal Kadaluwarsa wajib diisi");
       return;
     }
     data.teacherLicenseExpiry = expiry;
     data.page = page;
+    data.yearsOfExperience = Number(data.yearsOfExperience);
+    data.profilePicture = profileImage;
     console.log(data);
-    // setIsLoading(true);
+    try {
+      const res = await updateTeacherProfile(formId, data);
+      if (res?.status === 201) {
+        setIsLoading(false);
+        router.push(`/onboarding/${userId}?page=${nextPage}`);
+        console.log(res.data);
+      } else {
+        setIsLoading(false);
+        throw new Error("Something went wrong");
+      }
+    } catch (error) {
+      setIsLoading(false);
+    }
   }
   return (
     <div className="w-full">

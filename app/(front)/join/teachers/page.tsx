@@ -14,15 +14,15 @@ export default function page() {
   const cards = [
     {
       title: "Begin your journey",
-      description: "Start a new application to join our network",
-      link: "/",
+      description: "Start a new application to join our network of education service provider",
+      link: "/register?role=TEACHER&plan=free",
       linkTitle: "Start a new application",
     },
     {
-      title: "Begin your journey",
-      description: "Start a new application to join our network",
-      link: "/",
-      linkTitle: "Start a new application",
+      title: "Resume Application",
+      description: "Pick up where you left off and complete your orientation process. Schedule a meeting",
+      link: "/onboarding/resume",
+      linkTitle: "Continue your Application",
     },
     {
       title: "Begin your journey",

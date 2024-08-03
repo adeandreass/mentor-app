@@ -44,7 +44,7 @@ export default function TextInput({
       )}
 
       <Input
-        {...register(`${name}`, { required: `${isRequired}` })}
+        {...register(`${name}`, { required: isRequired })}
         id={`${name}`}
         name={`${name}`}
         type={type}
